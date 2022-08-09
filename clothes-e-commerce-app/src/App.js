@@ -1,9 +1,19 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Home } from './pages/Home';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
+import { useLocalStorage } from './hooks/useLocalStorage';
+import { useEffect } from 'react';
 
 function App() {
+  const [user, setUser] = useLocalStorage("user", {});
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (Object.keys(user).length === 0) {
+      navigate("/auth/login")
+    }
+  }, [user])
 
   return (
     <Routes>

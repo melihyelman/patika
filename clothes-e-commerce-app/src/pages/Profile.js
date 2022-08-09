@@ -1,7 +1,12 @@
 import React from 'react'
+import { EditProfile } from '../components/EditProfile'
+import { Header } from '../components/Header'
 
 export const Profile = () => {
     return (
-        <div>Profile</div>
+        <>
+            <Header />
+            <EditProfile />
+        </>
     )
 }

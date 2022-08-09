@@ -23,7 +23,6 @@ export const loginASYNC = (user) => async dispatch => {
                 return e
             }
         })
-        delete loginUser.password
         if (loginUser) {
             dispatch(login(loginUser))
             return loginUser;
@@ -42,6 +41,16 @@ export const registerASYNC = (user) => async dispatch => {
     } catch (e) {
         console.log(e)
     }
+}
+
+export const updateAsync = (user) => async dispatch => {
+    try {
+        const result = await axios.put(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${user.id}`, user)
+        console.log(result.data)
+    } catch (e) {
+        console.log(e)
+    }
+
 }
 
 

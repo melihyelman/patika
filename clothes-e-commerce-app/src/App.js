@@ -4,6 +4,7 @@ import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useEffect } from 'react';
+import { Profile } from './pages/Profile';
 
 function App() {
   const [user, setUser] = useLocalStorage("user", {});
@@ -20,6 +21,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/register" element={<Register />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }

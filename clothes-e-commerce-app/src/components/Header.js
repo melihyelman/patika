@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { FaUser, FaStar, FaShoppingBasket, FaSignOutAlt } from 'react-icons/fa'
 import { Link } from "react-router-dom"
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useSelector } from 'react-redux';
 
 export const Header = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);
     const [user, setUser] = useLocalStorage("user", {});
+    const { basket } = useSelector(state => state.basket);
     return (
         <>
             <nav className="px-2 py-3 bg-blue-500 mb-3">
@@ -29,19 +31,19 @@ export const Header = () => {
                             </div>
                         </li>
                         <div className={`${navbarOpen ? "flex flex-col gap-2 z-50" : "hidden"} absolute top-16 right-0 rounded-lg bg-blue-500 p-4 min-w-[12rem]`}>
-                            <Link to="profile" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>
+                            <Link to="/profile" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>
                                 <li className='flex items-center gap-3'>
                                     <FaUser />Profile
                                 </li>
                             </Link>
-                            <Link to="favorites" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>
-                                <li className='flex items-center gap-3'>
-                                    <FaStar />Favorites
+                            <Link to="/favorites" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>
+                                <li className='flex items-center justify-between'>
+                                    <div className='flex items-center gap-3'><FaStar />Favorites</div><span>1</span>
                                 </li>
                             </Link>
-                            <Link to="Basket" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>
-                                <li className='flex items-center gap-3'>
-                                    <FaShoppingBasket />Basket
+                            <Link to="/basket" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>
+                                <li className='flex items-center justify-between'>
+                                    <div className='flex items-center gap-3'><FaShoppingBasket />Basket</div> <span className='font-semibold'> {basket.length}</span>
                                 </li>
                             </Link>
                             <li className='flex items-center gap-3 px-4 py-2 bg-red-500 rounded-lg text-white hover:bg-red-400 cursor-pointer' onClick={() => { setUser({}); window.location.reload() }}>

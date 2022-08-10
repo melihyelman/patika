@@ -1,7 +1,22 @@
 import { FaShoppingBasket, FaStar } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
+import { useLocalStorage } from '../hooks/useLocalStorage'
+import { addBasket, removeBasket } from '../redux/basketSlice'
 
 
 export const Product = ({ product }) => {
+    const dispatch = useDispatch()
+    const [basket, setBasket] = useLocalStorage('basket', [])
+    const handleCartClick = () => {
+        dispatch(addBasket(product))
+        setBasket(basket.find(item => item.id === product.id) ? basket : [...basket, product])
+    }
+    const handleCartRemove = () => {
+        dispatch(removeBasket({ id: product.id }))
+        setBasket(basket.filter(item => item.id !== product.id))
+    }
+    const inCart = basket.find(item => item.id === product.id)
+
     return (
         <div className='container mt-8 mx-auto px-4 flex items-stretch flex-col md:flex-row'>
             <img className='w-full md:w-[32rem] h-[32rem] rounded-3xl object-fill' src={product.image} alt="img" />
@@ -13,9 +28,17 @@ export const Product = ({ product }) => {
                     <button className='flex-1 flex items-center gap-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-3xl'>
                         <FaStar />Add To Favorites
                     </button>
-                    <button className='flex-1 flex items-center gap-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl'>
-                        <FaShoppingBasket />Add To Cart
-                    </button>
+                    {!inCart ? (
+                        <button className='flex-1 flex items-center gap-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl'
+                            onClick={handleCartClick}>
+                            <FaShoppingBasket />Add To Cart
+                        </button>
+                    ) : (
+                        <button className='flex-1 flex items-center gap-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-3xl'
+                            onClick={handleCartRemove}>
+                            <FaShoppingBasket />Remove To Cart
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

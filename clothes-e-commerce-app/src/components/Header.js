@@ -8,6 +8,7 @@ export const Header = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);
     const [user, setUser] = useLocalStorage("user", {});
     const { basket } = useSelector(state => state.basket);
+    const { favorite } = useSelector(state => state.favorite);
     return (
         <>
             <nav className="px-2 py-3 bg-blue-500 mb-3">
@@ -38,7 +39,7 @@ export const Header = () => {
                             </Link>
                             <Link to="/favorites" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>
                                 <li className='flex items-center justify-between'>
-                                    <div className='flex items-center gap-3'><FaStar />Favorites</div><span>1</span>
+                                    <div className='flex items-center gap-3'><FaStar />Favorites</div><span>{favorite.length}</span>
                                 </li>
                             </Link>
                             <Link to="/basket" className='px-4 py-2 bg-blue-300 rounded-lg text-gray-700 hover:bg-blue-200 cursor-pointer'>

@@ -16,7 +16,6 @@ const basketSlice = createSlice({
         },
         removeBasket: (state, action) => {
             const { id } = action.payload
-            console.log(action.payload)
             state.basket = state.basket.filter(item => item.id !== id)
         }
     }
